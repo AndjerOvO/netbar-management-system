@@ -1,122 +1,238 @@
-<p align="center">
-	<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-d3d0a9303e11d522a06cd263f3079027715.png">
-</p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">RuoYi v3.9.2</h1>
-<h4 align="center">基于SpringBoot+Vue3前后端分离的Java快速开发框架</h4>
-<p align="center">
-	<a href="https://gitee.com/y_project/RuoYi-Vue/stargazers"><img src="https://gitee.com/y_project/RuoYi-Vue/badge/star.svg?theme=dark"></a>
-	<a href="https://gitee.com/y_project/RuoYi-Vue"><img src="https://img.shields.io/badge/RuoYi-v3.9.2-brightgreen.svg"></a>
-	<a href="https://gitee.com/y_project/RuoYi-Vue/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
-</p>
+# 网咖综合管理系统
 
-## 平台简介
+<div align="center">
 
-* 本仓库为前端技术栈 [Vue3](https://v3.cn.vuejs.org) + [Element Plus](https://element-plus.org/zh-CN) + [Vite](https://cn.vitejs.dev) 版本。
-* 配套后端代码仓库地址[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) 或 [RuoYi-Vue-fast](https://gitcode.com/yangzongzhuan/RuoYi-Vue-fast) 版本。
-* 阿里云折扣场：[点我进入](http://aly.ruoyi.vip)，腾讯云秒杀场：[点我进入](http://txy.ruoyi.vip)&nbsp;&nbsp;
+**基于 [RuoYi-Vue3](https://gitee.com/y_project/RuoYi-Vue) 二次开发 · Maven 多模块 · Spring Boot + Vue 3**
 
-# 版本对比
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://adoptium.net/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.6-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Vue](https://img.shields.io/badge/Vue-3.5-4FC08D.svg)](https://vuejs.org/)
 
-RuoYi-Vue 前端项目的三个主要演进版本，方便你直观对比其技术栈差异（并行开发维护）。
+</div>
 
-| 项目名称      | **RuoYi-Vue** | **RuoYi-Vue3** | **RuoYi-Vue3-TypeScript**   |
-| :---          | :---          | :---           | :---                        |
-| **前端框架**  | Vue 2        | Vue 3          | Vue 3                       |
-| **脚本语言**  | JavaScript   | JavaScript     | TypeScript                  |
-| **构建工具**  | Vue CLI      | Vite           | Vite                        |
-| **UI 组件库** | Element UI   | Element Plus   | Element Plus                |
-| **状态管理**  | Vuex         | Pinia          | Pinia                       |
-| **路由管理**  | Vue Router 3 | Vue Router 4   | Vue Router 4                |
-| **核心特点**  | 1. 技术栈经典稳定<br>2. 社区资料丰富<br>3. 当前维护重心已转移 | 1. 现代前端技术栈<br>2. 开发体验与性能更优<br>3. 官方主推的活跃版本 | 1. 类型加持，减少沟通成本<br>2. 开发时有提示，效率更高<br>3. 多人协作企业级开发项目 |
-| **仓库地址**  | [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) | [RuoYi-Vue3](https://gitcode.com/yangzongzhuan/RuoYi-Vue3) | [RuoYi-Vue3-TypeScript](https://gitcode.com/yangzongzhuan/RuoYi-Vue3/tree/typescript) |
+---
 
-## 前端运行
+## 项目简介
 
-```bash
-# 克隆项目
-git clone https://github.com/yangzongzhuan/RuoYi-Vue3.git
+网咖综合管理系统是一套面向网吧/网咖场景的全流程业务管理平台，基于 RuoYi-Vue3 前后端分离框架进行深度二次开发。系统覆盖会员管理、设备分区计费、商品销售、上机实时监控、数据统计分析等核心业务模块，支持后台管理与会员自助端双入口，内置心跳保活、余额强制下线、库存防超卖等网咖特有业务逻辑。
 
-# 进入项目目录
-cd RuoYi-Vue3
+> 原框架若依（RuoYi-Vue3）为国内最广泛使用的 Java 后台管理系统脚手架之一，本项目在其权限管理、代码生成等基础设施之上，删减了无关模块（代码生成器、定时任务框架等），新增 `netbar-netcafe` 网咖业务模块，重构了用户/角色管理（移除部门、岗位），并适配了暗黑模式与移动端响应式布局。
 
-# 安装依赖
-yarn --registry=https://registry.npmmirror.com
+## 核心功能
 
-# 启动服务
-yarn dev
+| 模块 | 功能 |
+|------|------|
+| 👥 会员管理 | 正式会员 / 临时卡（24h 过期），身份证后 6 位即为登录密码 |
+| 🖥️ 设备管理 | 分区管理（普通区 / 竞技区 / 包厢），机位状态实时监控 |
+| ⏱️ 分段计费 | <15 分钟免单，15-30 分按半小时，≥30 分整小时向上取整 |
+| 💓 心跳保活 | 会员端每 15 秒发送心跳，60 秒超时自动结账释放机位 |
+| 🛑 强制下线 | 余额归零 5 分钟后自动结账，防恶意占用 |
+| 🛒 商品销售 | 购物车模式，余额支付，`WHERE stock >= quantity` 防超卖扣减 |
+| 💰 充值管理 | 充值记录追踪，余额变动流水 |
+| 📊 数据看板 | ECharts 近 7 天网费/会员/商品销售趋势图 |
+| 🔐 双 Token 隔离 | 后台 `Authorization`（JWT + Redis），会员端 `Member-Token`（JWT 24h） |
+| 🌗 暗黑模式 | View Transitions API 动画切换，浅色墨绿 + 香槟金配色 |
 
-# 构建测试环境 yarn build:stage
-# 构建生产环境 yarn build:prod
-# 前端访问地址 http://localhost:80
+## 技术栈
+
+详见 [TECH_STACK.md](TECH_STACK.md)
+
+### 后端
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| JDK | 21 | 运行环境 |
+| Spring Boot | 4.0.6 | 核心框架 |
+| Spring Security + JWT | — | 认证鉴权 |
+| MyBatis + PageHelper | 4.0.1 / 4.1.0 | 持久层 + 分页 |
+| MySQL | 9.7 | 关系数据库 |
+| Redis | 5.0 | 缓存 / Token 管理 |
+| Druid | 1.2.28 | 数据库连接池与监控 |
+| SpringDoc | 3.0.3 | API 文档 (Swagger UI) |
+
+### 前端
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| Vue 3 | 3.5.26 | 渐进式框架 |
+| Vite | 6.4.1 | 构建工具 |
+| Element Plus | 2.13.1 | UI 组件库 |
+| Pinia | 3.0.4 | 状态管理 |
+| ECharts | 5.6.0 | 数据图表 |
+| Axios | 1.13.2 | HTTP 客户端 |
+
+## 项目结构
+
+```
+NetBarSystem/
+├── netbar-backend/                    # 后端 Maven 父工程
+│   ├── netbar-admin/                  # 启动入口 + REST Controller
+│   ├── netbar-common/                 # 公共工具、实体类、注解
+│   ├── netbar-framework/              # Security / JWT / AOP 切面
+│   ├── netbar-module-system/          # 系统业务（用户/角色/菜单）
+│   └── netbar-netcafe/                # 🔥 网咖业务核心模块
+├── src/                               # 前端 Vue 3 项目
+│   ├── api/                           # 接口请求封装
+│   ├── views/
+│   │   ├── netcafe/                   # 后台管理页面
+│   │   └── member/                    # 会员自助端页面
+│   ├── layout/                        # 布局组件
+│   ├── store/                         # Pinia 状态管理
+│   └── router/                        # 路由配置
+├── sql/                               # 数据库初始化脚本
+└── TECH_STACK.md                      # 完整技术栈清单
 ```
 
-## 内置功能
+## 环境准备
 
-1.  用户管理：用户是系统操作者，该功能主要完成系统用户配置。
-2.  部门管理：配置系统组织机构（公司、部门、小组），树结构展现支持数据权限。
-3.  岗位管理：配置系统用户所属担任职务。
-4.  菜单管理：配置系统菜单，操作权限，按钮权限标识等。
-5.  角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。
-6.  字典管理：对系统中经常使用的一些较为固定的数据进行维护。
-7.  参数管理：对系统动态配置常用参数。
-8.  通知公告：系统通知公告信息发布维护。
-9.  操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。
-10. 登录日志：系统登录日志记录查询包含登录异常。
-11. 在线用户：当前系统中活跃用户状态监控。
-12. 定时任务：在线（添加、修改、删除)任务调度包含执行结果日志。
-13. 代码生成：前后端代码的生成（java、html、xml、sql）支持CRUD下载 。
-14. 系统接口：根据业务代码自动生成相关的api接口文档。
-15. 服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
-16. 缓存监控：对系统的缓存信息查询，命令统计等。
-17. 在线构建器：拖动表单元素生成相应的HTML代码。
-18. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
+| 软件 | 版本要求 | 说明 |
+|------|----------|------|
+| JDK | 21+ | Java 运行环境 |
+| Maven | 3.9+ | 后端构建 |
+| MySQL | 8.0+ (推荐 9.7) | 数据库 |
+| Redis | 5.0+ | 缓存服务 |
+| Node.js | v24+ | 前端运行环境 |
+| pnpm / npm | — | 包管理器（推荐 pnpm） |
 
-## 在线体验
+## 后端启动
 
-- admin/admin123  
-- 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级。谢谢各位小伙伴。
+### 1. 初始化数据库
 
-演示地址：http://vue.ruoyi.vip  
-文档地址：http://doc.ruoyi.vip
+```sql
+-- 创建数据库
+CREATE DATABASE IF NOT EXISTS `ry-vue` DEFAULT CHARACTER SET utf8mb4;
 
-## 演示图
+-- 导入初始化脚本
+-- 执行项目 sql/ 目录下的 SQL 脚本
+```
 
-<table>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/cd1f90be5f2684f4560c9519c0f2a232ee8.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/1cbcf0e6f257c7d3a063c0e3f2ff989e4b3.jpg"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-8074972883b5ba0622e13246738ebba237a.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-9f88719cdfca9af2e58b352a20e23d43b12.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-39bf2584ec3a529b0d5a3b70d15c9b37646.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-936ec82d1f4872e1bc980927654b6007307.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-b2d62ceb95d2dd9b3fbe157bb70d26001e9.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-d67451d308b7a79ad6819723396f7c3d77a.png"/></td>
-    </tr>	 
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/5e8c387724954459291aafd5eb52b456f53.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/644e78da53c2e92a95dfda4f76e6d117c4b.jpg"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-8370a0d02977eebf6dbf854c8450293c937.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-49003ed83f60f633e7153609a53a2b644f7.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-d4fe726319ece268d4746602c39cffc0621.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-c195234bbcd30be6927f037a6755e6ab69c.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/b6115bc8c31de52951982e509930b20684a.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-5e4daac0bb59612c5038448acbcef235e3a.png"/></td>
-    </tr>
-</table>
+### 2. 修改配置文件
 
+复制模板并填写本地环境信息：
 
-## 若依前后端分离交流群
+```bash
+cd netbar-backend/netbar-admin/src/main/resources/
 
-QQ群： [![加入QQ群](https://img.shields.io/badge/已满-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og) [![加入QQ群](https://img.shields.io/badge/已满-887144332-blue.svg)](https://jq.qq.com/?_wv=1027&k=5eiA4DH) [![加入QQ群](https://img.shields.io/badge/已满-180251782-blue.svg)](https://jq.qq.com/?_wv=1027&k=5AxMKlC) [![加入QQ群](https://img.shields.io/badge/已满-104180207-blue.svg)](https://jq.qq.com/?_wv=1027&k=51G72yr) [![加入QQ群](https://img.shields.io/badge/已满-186866453-blue.svg)](https://jq.qq.com/?_wv=1027&k=VvjN2nvu) [![加入QQ群](https://img.shields.io/badge/已满-201396349-blue.svg)](https://jq.qq.com/?_wv=1027&k=5vYAqA05) [![加入QQ群](https://img.shields.io/badge/已满-101456076-blue.svg)](https://jq.qq.com/?_wv=1027&k=kOIINEb5) [![加入QQ群](https://img.shields.io/badge/已满-101539465-blue.svg)](https://jq.qq.com/?_wv=1027&k=UKtX5jhs) [![加入QQ群](https://img.shields.io/badge/已满-264312783-blue.svg)](https://jq.qq.com/?_wv=1027&k=EI9an8lJ) [![加入QQ群](https://img.shields.io/badge/已满-167385320-blue.svg)](https://jq.qq.com/?_wv=1027&k=SWCtLnMz) [![加入QQ群](https://img.shields.io/badge/已满-104748341-blue.svg)](https://jq.qq.com/?_wv=1027&k=96Dkdq0k) [![加入QQ群](https://img.shields.io/badge/已满-160110482-blue.svg)](https://jq.qq.com/?_wv=1027&k=0fsNiYZt) [![加入QQ群](https://img.shields.io/badge/已满-170801498-blue.svg)](https://jq.qq.com/?_wv=1027&k=7xw4xUG1) [![加入QQ群](https://img.shields.io/badge/已满-108482800-blue.svg)](https://jq.qq.com/?_wv=1027&k=eCx8eyoJ) [![加入QQ群](https://img.shields.io/badge/已满-101046199-blue.svg)](https://jq.qq.com/?_wv=1027&k=SpyH2875) [![加入QQ群](https://img.shields.io/badge/已满-136919097-blue.svg)](https://jq.qq.com/?_wv=1027&k=tKEt51dz) [![加入QQ群](https://img.shields.io/badge/已满-143961921-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=0vBbSb0ztbBgVtn3kJS-Q4HUNYwip89G&authKey=8irq5PhutrZmWIvsUsklBxhj57l%2F1nOZqjzigkXZVoZE451GG4JHPOqW7AW6cf0T&noverify=0&group_code=143961921) [![加入QQ群](https://img.shields.io/badge/已满-174951577-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=ZFAPAbp09S2ltvwrJzp7wGlbopsc0rwi&authKey=HB2cxpxP2yspk%2Bo3WKTBfktRCccVkU26cgi5B16u0KcAYrVu7sBaE7XSEqmMdFQp&noverify=0&group_code=174951577) [![加入QQ群](https://img.shields.io/badge/已满-161281055-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Fn2aF5IHpwsy8j6VlalNJK6qbwFLFHat&authKey=uyIT%2B97x2AXj3odyXpsSpVaPMC%2Bidw0LxG5MAtEqlrcBcWJUA%2FeS43rsF1Tg7IRJ&noverify=0&group_code=161281055) [![加入QQ群](https://img.shields.io/badge/已满-138988063-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=XIzkm_mV2xTsUtFxo63bmicYoDBA6Ifm&authKey=dDW%2F4qsmw3x9govoZY9w%2FoWAoC4wbHqGal%2BbqLzoS6VBarU8EBptIgPKN%2FviyC8j&noverify=0&group_code=138988063) [![加入QQ群](https://img.shields.io/badge/已满-151450850-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=DkugnCg68PevlycJSKSwjhFqfIgrWWwR&authKey=pR1Pa5lPIeGF%2FFtIk6d%2FGB5qFi0EdvyErtpQXULzo03zbhopBHLWcuqdpwY241R%2F&noverify=0&group_code=151450850) [![加入QQ群](https://img.shields.io/badge/已满-224622315-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=F58bgRa-Dp-rsQJThiJqIYv8t4-lWfXh&authKey=UmUs4CVG5OPA1whvsa4uSespOvyd8%2FAr9olEGaWAfdLmfKQk%2FVBp2YU3u2xXXt76&noverify=0&group_code=224622315) [![加入QQ群](https://img.shields.io/badge/已满-287842588-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Nxb2EQ5qozWa218Wbs7zgBnjLSNk_tVT&authKey=obBKXj6SBKgrFTJZx0AqQnIYbNOvBB2kmgwWvGhzxR67RoRr84%2Bus5OadzMcdJl5&noverify=0&group_code=287842588) [![加入QQ群](https://img.shields.io/badge/已满-187944233-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=numtK1M_I4eVd2Gvg8qtbuL8JgX42qNh&authKey=giV9XWMaFZTY%2FqPlmWbkB9g3fi0Ev5CwEtT9Tgei0oUlFFCQLDp4ozWRiVIzubIm&noverify=0&group_code=187944233) [![加入QQ群](https://img.shields.io/badge/已满-228578329-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=G6r5KGCaa3pqdbUSXNIgYloyb8e0_L0D&authKey=4w8tF1eGW7%2FedWn%2FHAypQksdrML%2BDHolQSx7094Agm7Luakj9EbfPnSTxSi2T1LQ&noverify=0&group_code=228578329) [![加入QQ群](https://img.shields.io/badge/已满-191164766-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=GsOo-OLz53J8y_9TPoO6XXSGNRTgbFxA&authKey=R7Uy%2Feq%2BZsoKNqHvRKhiXpypW7DAogoWapOawUGHokJSBIBIre2%2FoiAZeZBSLuBc&noverify=0&group_code=191164766) [![加入QQ群](https://img.shields.io/badge/已满-174569686-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=PmYavuzsOthVqfdAPbo4uAeIbu7Ttjgc&authKey=p52l8%2FXa4PS1JcEmS3VccKSwOPJUZ1ZfQ69MEKzbrooNUljRtlKjvsXf04bxNp3G&noverify=0&group_code=174569686) [![加入QQ群](https://img.shields.io/badge/127358632-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=M9y5NjAl44lAL_Vh2crmEehZU_PMU6KS&authKey=ZSDz8hEREWSaPuxQV3gEwqGIaGjfRNnkB4rJjf0IvXhrSUGSGwQFmBA%2Boe8HFxyl&noverify=0&group_code=127358632) 点击按钮入群。
+# 复制模板（application.yml 已内置默认配置，一般无需改动）
+# 如需自定义环境，创建 application-dev.yml 写入本地配置
+```
+
+关键配置项（`application.yml`）：
+
+```yaml
+spring:
+  datasource:
+    druid:
+      master:
+        url: jdbc:mysql://localhost:3306/ry-vue
+        username: root
+        password: 123456
+  data:
+    redis:
+      host: localhost
+      port: 6379
+```
+
+> ⚠️ `application-dev.yml` / `application-prod.yml` 已在 `.gitignore` 中忽略，请勿将含真实密码的配置文件提交到仓库。
+
+### 3. 启动 Redis
+
+```bash
+redis-server
+```
+
+### 4. 编译并启动
+
+```bash
+cd netbar-backend
+
+# 编译（跳过测试）
+mvn clean package -DskipTests
+
+# 启动
+java -jar netbar-admin/target/netbar-admin.jar
+```
+
+启动成功后可访问：
+
+- API 文档：http://localhost:8080/swagger-ui.html
+- Druid 监控：http://localhost:8080/druid（账号 `netbar` / 密码 `123456`）
+
+## 前端启动
+
+### 1. 安装依赖
+
+```bash
+cd NetBarSystem
+
+# npm
+npm install
+
+# 或 pnpm
+pnpm install
+```
+
+### 2. 配置环境变量
+
+复制 `.env.example` 为 `.env.development`（已加入 `.gitignore`）：
+
+```bash
+# .env.development
+VITE_APP_TITLE = 网咖综合管理系统
+VITE_APP_ENV = 'development'
+VITE_APP_BASE_API = '/dev-api'
+```
+
+### 3. 启动开发服务器
+
+```bash
+npm run dev
+```
+
+默认访问地址：
+
+| 入口 | URL | 账号 | 密码 |
+|------|------|------|------|
+| 后台管理 | http://localhost:8088 | admin | admin123 |
+| 会员端 | http://localhost:8088/member | M001 | 011234 |
+
+### 4. 生产构建
+
+```bash
+npm run build:prod
+```
+
+构建产物输出至 `dist/` 目录。
+
+## 注意事项
+
+1. **配置文件安全**：`application-dev.yml`、`application-prod.yml`、`.env.development`、`.env.production` 等含本地敏感信息的文件已加入 `.gitignore`，请自行创建。可参考 `application.yml` 中的默认配置。
+2. **Redis 依赖**：后端启动强依赖 Redis，请确保 Redis 服务已启动后再运行后端。
+3. **数据库初始化**：首次启动前需导入 `sql/` 目录下的初始化脚本，创建必要的数据表与初始数据。
+4. **端口占用**：后端默认 `8080`，前端默认 `8088`，请确保端口未被占用。
+5. **自动导入**：前端使用 `unplugin-auto-import`，Vue 和 Element Plus API 无需手动 `import`。
+6. **Windows 用户**：目录路径中的反斜杠请统一使用 `/` 或双反斜杠 `\\`。
+
+## 许可证
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+本项目基于 [RuoYi-Vue3](https://gitee.com/y_project/RuoYi-Vue) 开发，遵循 MIT 开源协议。
+
+- 原若依框架采用 MIT 协议，版权归若依作者所有。
+- 本项目新增的网咖业务模块 (`netbar-netcafe`) 同样以 MIT 协议开放。
+
+## 联系方式
+
+- **Issues**：如有问题或建议，请在 [GitHub Issues]() 提交。
+- **PR**：欢迎提交 Pull Request，请先阅读贡献指南。
+
+---
+
+<div align="center">
+
+**⭐ 如果这个项目对你有帮助，请给一个 Star！**
+
+</div>
+"# netbar-management-system" 
