@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztw.netbar.netcafe.mapper.NetcafeRechargeRecordMapper">
+
+    <resultMap type="NetcafeRechargeRecord" id="NetcafeRechargeRecordResult">
+        <result property="id"          column="id"           />
+        <result property="memberId"    column="member_id"    />
+        <result property="amount"      column="amount"       />
+        <result property="payType"     column="pay_type"     />
+        <result property="operator"    column="operator"     />
+        <result property="delFlag"     column="del_flag"     />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"  column="create_time"  />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"  column="update_time"  />
+        <result property="remark"      column="remark"       />
+        <result property="memberName"  column="member_name"  />
+    </resultMap>
+
+    <sql id="selectNetcafeRechargeRecordVo">
+        select r.id, r.member_id, r.amount, r.pay_type, r.operator, r.del_flag,
+               r.create_by, r.create_time, r.update_by, r.update_time, r.remark,
+               m.name as member_name
+        from netcafe_recharge_record r
+        left join netcafe_member m on r.member_id = m.id
+    </sql>
+
+    <select id="selectNetcafeRechargeRecordById" parameterType="Long" resultMap="NetcafeRechargeRecordResult">
+        <include refid="selectNetcafeRechargeRecordVo"/>
+        where r.id = #{id} and r.del_flag = '0'
+    </select>
+
+    <select id="selectNetcafeRechargeRecordList" parameterType="NetcafeRechargeRecord" resultMap="NetcafeRechargeRecordResult">
+        <include refid="selectNetcafeRechargeRecordVo"/>
+        <where>
+            r.del_flag = '0'
+            <if test="memberId != null">
+                AND r.member_id = #{memberId}
+            </if>
+            <if test="payType != null and payType != ''">
+                AND r.pay_type = #{payType}
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                AND date_format(r.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                AND date_format(r.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by r.id desc
+    </select>
+
+    <insert id="insertNetcafeRechargeRecord" parameterType="NetcafeRechargeRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into netcafe_recharge_record (
+            <if test="memberId != null">member_id, </if>
+            <if test="amount != null">amount, </if>
+            <if test="payType != null and payType != ''">pay_type, </if>
+            <if test="operator != null and operator != ''">operator, </if>
+            <if test="remark != null and remark != ''">remark, </if>
+            <if test="createBy != null and createBy != ''">create_by, </if>
+            create_time
+        )values(
+            <if test="memberId != null">#{memberId}, </if>
+            <if test="amount != null">#{amount}, </if>
+            <if test="payType != null and payType != ''">#{payType}, </if>
+            <if test="operator != null and operator != ''">#{operator}, </if>
+            <if test="remark != null and remark != ''">#{remark}, </if>
+            <if test="createBy != null and createBy != ''">#{createBy}, </if>
+            sysdate()
+        )
+    </insert>
+
+</mapper>

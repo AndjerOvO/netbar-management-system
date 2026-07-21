@@ -25,21 +25,6 @@
           <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
         </el-input>
       </el-form-item>
-      <el-form-item prop="code" v-if="captchaEnabled">
-        <el-input
-          v-model="loginForm.code"
-          size="large"
-          auto-complete="off"
-          placeholder="验证码"
-          style="width: 63%"
-          @keyup.enter="handleLogin"
-        >
-          <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
-        </el-input>
-        <div class="login-code">
-          <img :src="codeUrl" @click="getCode" class="login-code-img"/>
-        </div>
-      </el-form-item>
       <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
         <el-button
@@ -65,7 +50,6 @@
 </template>
 
 <script setup>
-import { getCodeImg } from "@/api/login"
 import Cookies from "js-cookie"
 import { encrypt, decrypt } from "@/utils/jsencrypt"
 import useUserStore from '@/store/modules/user'
@@ -81,21 +65,15 @@ const { proxy } = getCurrentInstance()
 const loginForm = ref({
   username: "admin",
   password: "admin123",
-  rememberMe: false,
-  code: "",
-  uuid: ""
+  rememberMe: false
 })
 
 const loginRules = {
   username: [{ required: true, trigger: "blur", message: "请输入您的账号" }],
-  password: [{ required: true, trigger: "blur", message: "请输入您的密码" }],
-  code: [{ required: true, trigger: "change", message: "请输入验证码" }]
+  password: [{ required: true, trigger: "blur", message: "请输入您的密码" }]
 }
 
-const codeUrl = ref("")
 const loading = ref(false)
-// 验证码开关
-const captchaEnabled = ref(true)
 // 注册开关
 const register = ref(false)
 const redirect = ref(undefined)
@@ -131,21 +109,7 @@ function handleLogin() {
         router.push({ path: redirect.value || "/", query: otherQueryParams })
       }).catch(() => {
         loading.value = false
-        // 重新获取验证码
-        if (captchaEnabled.value) {
-          getCode()
-        }
       })
-    }
-  })
-}
-
-function getCode() {
-  getCodeImg().then(res => {
-    captchaEnabled.value = res.captchaEnabled === undefined ? true : res.captchaEnabled
-    if (captchaEnabled.value) {
-      codeUrl.value = "data:image/gif;base64," + res.img
-      loginForm.value.uuid = res.uuid
     }
   })
 }
@@ -161,7 +125,6 @@ function getCookie() {
   }
 }
 
-getCode()
 getCookie()
 </script>
 
@@ -171,69 +134,56 @@ getCookie()
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("../assets/images/login-background.jpg");
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../image/Login-bg.jpg");
   background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
 }
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
-  color: #707070;
+  color: #1a2332;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
 .login-form {
-  border-radius: 6px;
+  border-radius: 12px;
   background: #ffffff;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   width: 400px;
-  padding: 25px 25px 5px 25px;
+  padding: 30px 25px 10px 25px;
   z-index: 1;
   .el-input {
     height: 40px;
-    input {
-      height: 40px;
-    }
+    input { height: 40px; }
   }
   .input-icon {
-    height: 39px;
-    width: 14px;
-    margin-left: 0px;
+    height: 39px; width: 14px; margin-left: 0px;
   }
 }
 .login-tip {
-  font-size: 13px;
-  text-align: center;
-  color: #bfbfbf;
-}
-.login-code {
-  width: 33%;
-  height: 40px;
-  float: right;
-  img {
-    cursor: pointer;
-    vertical-align: middle;
-  }
+  font-size: 13px; text-align: center; color: #8a9aa8;
 }
 .el-login-footer {
-  height: 40px;
-  line-height: 40px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  color: #fff;
-  font-family: Arial;
-  font-size: 12px;
-  letter-spacing: 1px;
+  height: 40px; line-height: 40px; position: fixed; bottom: 0; width: 100%;
+  text-align: center; color: #8a9aa8;
+  font-family: Arial; font-size: 12px; letter-spacing: 1px;
 }
-.login-code-img {
-  height: 40px;
-  padding-left: 12px;
-}
-
 html.dark .login {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("../assets/images/login-background.jpg");
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("../image/Login-bg.jpg");
+  background-size: cover;
+  background-position: center;
   .login-form {
-    background: var(--el-bg-color-overlay) !important;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    background: rgba(26, 35, 50, 0.9) !important;
+    border: 1px solid rgba(45, 90, 75, 0.25);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
   }
+  .title { color: #e2e8f0; }
+  .login-tip, .el-login-footer { color: #a0aec0; }
 }
 </style>

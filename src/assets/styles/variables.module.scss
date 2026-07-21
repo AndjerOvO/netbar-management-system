@@ -1,448 +1,286 @@
-// base color
-$blue: #324157;
-$light-blue: #333c46;
-$red: #C03639;
-$pink: #E65D6E;
-$green: #30B08F;
-$tiffany: #4AB7BD;
-$yellow: #FEC171;
-$panGreen: #30B08F;
+// ==================== 浅色高级风色板 ====================
+// 主色
+$color-primary: #2d5a4b;
+$color-primary-dark: #1f3f34;
+$color-primary-light: rgba(45, 90, 75, 0.08);
+$color-primary-border: rgba(45, 90, 75, 0.2);
+$color-accent: #c9a84c;
 
-// 默认主题变量
-$menuText: #bfcbd9;
-$menuActiveText: #409eff;
-$menuBg: #1a1f2e;
-$menuHover: #263445;
+// 背景
+$bg-primary: #f4f6f9;
+$bg-card: #ffffff;
+$bg-sidebar: #1a2332;
+$bg-table-header: #f0f2f5;
 
-// 浅色主题theme-light
+// 文字
+$text-primary: #1a2332;
+$text-secondary: #5a6a7a;
+$text-light: #8a9aa8;
+$text-sidebar: rgba(255, 255, 255, 0.7);
+$text-sidebar-active: #ffffff;
+
+// 边框
+$border-light: #e8ecf0;
+
+// 阴影
+$shadow-card: 0 2px 12px rgba(0, 0, 0, 0.06);
+$shadow-dropdown: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+// ==================== 兼容旧 mixin ====================
+$blue: #2d5a4b;
+$light-blue: #3d6a5b;
+$red: #e53e3e;
+$pink: #d53f8c;
+$green: #38a169;
+$tiffany: #c9a84c;
+$yellow: #d69e2e;
+$panGreen: #38a169;
+
+// ==================== 菜单变量 ====================
+$menuText: $text-sidebar;
+$menuActiveText: $text-sidebar-active;
+$menuBg: $bg-sidebar;
+$menuHover: rgba(255, 255, 255, 0.05);
 $menuLightBg: #ffffff;
-$menuLightHover: #f0f1f5;
-$menuLightText: #303133;
-$menuLightActiveText: #409EFF;
+$menuLightHover: $color-primary-light;
+$menuLightText: $text-secondary;
+$menuLightActiveText: $color-primary;
 
-// 基础变量
 $base-sidebar-width: 200px;
 $sideBarWidth: 200px;
-
-// 菜单暗色变量
-$base-menu-color: rgba(255,255,255,.65);
+$base-menu-color: $text-sidebar;
 $base-menu-color-active: #ffffff;
-$base-menu-background: #1a1f2e;
-$base-sub-menu-background: #141824;
-$base-sub-menu-hover: rgba(255,255,255,.06);
+$base-menu-background: $bg-sidebar;
+$base-sub-menu-background: #151d28;
+$base-sub-menu-hover: rgba(255, 255, 255, 0.05);
 
-// 组件变量
-$--color-primary: #409EFF;
-$--color-success: #67C23A;
-$--color-warning: #E6A23C;
-$--color-danger: #F56C6C;
-$--color-info: #909399;
+// ==================== Element Plus 组件色 ====================
+$--color-primary: $color-primary;
+$--color-success: #38a169;
+$--color-warning: #d69e2e;
+$--color-danger: #e53e3e;
+$--color-info: #8a9aa8;
 
+// ==================== JS 导出 ====================
 :export {
-  menuText: $menuText;
-  menuActiveText: $menuActiveText;
-  menuBg: $menuBg;
-  menuHover: $menuHover;
-  menuLightBg: $menuLightBg;
-  menuLightHover: $menuLightHover;
-  menuLightText: $menuLightText;
-  menuLightActiveText: $menuLightActiveText;
+  menuText: $menuText; menuActiveText: $menuActiveText;
+  menuBg: $menuBg; menuHover: $menuHover;
+  menuLightBg: $menuLightBg; menuLightHover: $menuLightHover;
+  menuLightText: $menuLightText; menuLightActiveText: $menuLightActiveText;
   sideBarWidth: $sideBarWidth;
-  // 导出基础颜色
-  blue: $blue;
-  lightBlue: $light-blue;
-  red: $red;
-  pink: $pink;
-  green: $green;
-  tiffany: $tiffany;
-  yellow: $yellow;
-  panGreen: $panGreen;
-  // 导出组件颜色
-  colorPrimary: $--color-primary;
-  colorSuccess: $--color-success;
-  colorWarning: $--color-warning;
-  colorDanger: $--color-danger;
-  colorInfo: $--color-info;
+  blue: $blue; lightBlue: $light-blue; red: $red; pink: $pink;
+  green: $green; tiffany: $tiffany; yellow: $yellow; panGreen: $panGreen;
+  colorPrimary: $--color-primary; colorSuccess: $--color-success;
+  colorWarning: $--color-warning; colorDanger: $--color-danger; colorInfo: $--color-info;
 }
 
-// CSS变量定义
+// ==================== CSS 自定义属性 ====================
 :root {
-  /* 亮色模式变量 */
-  --sidebar-bg: #{$menuBg};
-  --sidebar-text: #{$menuText};
-  --menu-hover: #{$menuHover};
-  
+  --sidebar-bg: #{$bg-sidebar};
+  --sidebar-text: #{$text-secondary};
+  --menu-hover: #{$color-primary-light};
   --navbar-bg: #ffffff;
-  --navbar-text: #303133;
-  
-  /* splitpanes default-theme 变量 */
-  --splitpanes-default-bg: #ffffff;
-
+  --navbar-text: #{$text-primary};
+  --splitpanes-default-bg: #{$bg-primary};
 }
 
-// 暗黑模式变量
+// ==================== 暗色模式降级（保持可读） ====================
 html.dark {
-  /* 默认通用 */
-  --el-bg-color: #141414;
-  --el-bg-color-overlay: #1d1e1f;
-  --el-text-color-primary: #ffffff;
-  --el-text-color-regular: #d0d0d0;
-  --el-border-color: #434343;
-  --el-border-color-light: #434343;
-  --el-menu-text-color: #d0d0d0;
-  --sidebar-logo-text: #d0d0d0;
-  
-  /* primary */
-  --primary-bg: #18212b;
+  --el-bg-color: #1a2332;
+  --el-bg-color-overlay: #1f2a38;
+  --el-text-color-primary: #e2e8f0;
+  --el-text-color-regular: #cbd5e0;
+  --el-text-color-secondary: #a0aec0;
+  --el-border-color: #2d3748;
+  --el-border-color-light: #2d3748;
+  --el-border-color-lighter: #1a2332;
+  --el-fill-color: rgba(45, 90, 75, 0.08);
+  --el-fill-color-light: rgba(45, 90, 75, 0.04);
+  --el-menu-text-color: #{$text-sidebar};
+  --sidebar-logo-text: #{$text-sidebar-active};
 
-  /* 侧边栏 */
-  --sidebar-bg: #141414;
-  --sidebar-text: #ffffff;
-  --menu-hover: #2d2d2d;
-  --menu-active-text: #{$menuActiveText};
+  --el-color-primary: #{$color-primary};
+  --el-color-primary-light-3: #5a8a7b;
+  --el-color-primary-light-5: rgba(45, 90, 75, 0.35);
+  --el-color-primary-light-7: rgba(45, 90, 75, 0.18);
+  --el-color-primary-light-9: rgba(45, 90, 75, 0.06);
+  --el-color-primary-dark-2: #{$color-primary-dark};
+  --el-button-hover-bg-color: rgba(45, 90, 75, 0.12);
+  --el-button-hover-border-color: #{$color-primary};
+  --el-button-hover-text-color: #5a8a7b;
 
-  /* 顶部导航栏 */
-  --navbar-bg: #141414;
-  --navbar-text: #ffffff;
-  --navbar-hover: #141414;
+  --primary-bg: rgba(45, 90, 75, 0.12);
+  --current-color: #{$color-primary};
+  --current-color-dark-bg: rgba(45, 90, 75, 0.12);
+  --current-color-light: rgba(45, 90, 75, 0.06);
 
-  /* 标签栏 */
-  --tags-bg: #141414;
-  --tags-item-bg: #1d1e1f;
-  --tags-item-border: #303030;
-  --tags-item-text: #d0d0d0;
-  --tags-item-hover: #2d2d2d;
-  --tags-close-hover: #64666a;
-  /* 卡片模式激活页签 */
-  --tags-card-active-bg: var(--el-bg-color-overlay);
-  --tags-card-active-bg: color-mix(in srgb, var(--el-color-primary) 22%, var(--el-bg-color-overlay) 78%);
-  --tags-card-active-border: var(--tags-card-active-bg);
+  --sidebar-bg: #{$bg-sidebar};
+  --sidebar-text: #{$text-sidebar};
+  --menu-hover: #{$menuHover};
+  --menu-active-text: #{$text-sidebar-active};
 
-  /* splitpanes 组件暗黑模式变量 */
-  --splitpanes-bg: #141414;
-  --splitpanes-border: #303030;
-  --splitpanes-splitter-bg: #1d1e1f;
-  --splitpanes-splitter-hover-bg: #2d2d2d;
+  --navbar-bg: #1a2332;
+  --navbar-text: #e2e8f0;
+  --navbar-hover: rgba(255, 255, 255, 0.05);
 
-  /* blockquote 暗黑模式变量 */
-  --blockquote-bg: #1d1e1f;
-  --blockquote-border: #303030;
-  --blockquote-text: #d0d0d0;
-  
-  /* Cron 时间表达式 模式变量 */
-  --cron-border: #303030;
+  --tags-bg: #{$bg-sidebar};
+  --tags-item-bg: #1f2a38;
+  --tags-item-border: #2d3748;
+  --tags-item-text: #a0aec0;
+  --tags-item-hover: rgba(255, 255, 255, 0.05);
+  --tags-close-hover: #5a8a7b;
+  --tags-card-active-bg: rgba(45, 90, 75, 0.12);
+  --tags-card-active-border: rgba(45, 90, 75, 0.25);
+  --link-active-bg-color: rgba(26, 35, 50, 0.6);
 
-  /* splitpanes default-theme 暗黑模式变量 */
-  --splitpanes-default-bg: #141414;
+  --splitpanes-bg: #{$bg-sidebar};
+  --splitpanes-border: #2d3748;
+  --splitpanes-splitter-bg: #1f2a38;
+  --splitpanes-splitter-hover-bg: rgba(45, 90, 75, 0.15);
+  --splitpanes-default-bg: #{$bg-sidebar};
 
-  /* 侧边栏菜单覆盖 */
+  --blockquote-bg: #1f2a38;
+  --blockquote-border: rgba(45, 90, 75, 0.3);
+  --blockquote-text: #a0aec0;
+  --cron-border: #2d3748;
+
+  // === 侧边栏覆盖 ===
   .sidebar-container {
-    .el-menu-item:not(.is-active), .menu-title {
-      color: var(--el-text-color-regular);
+    .el-menu-item:not(.is-active), .menu-title { color: var(--el-text-color-regular); }
+
+    &.theme-dark {
+      box-shadow: 2px 0 16px rgba(0, 0, 0, 0.3);
+      border-right: 1px solid #2d3748;
+
+      .el-menu-item.is-active {
+        background: #{$color-primary} !important;
+        color: #ffffff !important;
+        border-left: 2px solid #{$color-accent};
+        .svg-icon, span { color: #ffffff !important; position: relative; z-index: 1; }
+      }
+      .el-sub-menu.is-active > .el-sub-menu__title { color: #ffffff !important; }
+      .el-menu-item:not(.is-active), .submenu-title-noDropdown, .el-sub-menu__title {
+        &:hover { background: #{$menuHover} !important; }
+      }
     }
-    & .el-menu .theme-dark .nest-menu .el-sub-menu > .el-sub-menu__title,
-    & .el-menu .theme-dark .el-sub-menu .el-menu-item,
+
+    & .theme-dark .nest-menu .el-sub-menu > .el-sub-menu__title,
+    & .theme-dark .el-sub-menu .el-menu-item,
     & .theme-dark .nest-menu .el-sub-menu > .el-sub-menu__title,
     & .theme-dark .el-sub-menu .el-menu-item {
-      background-color: var(--el-bg-color) !important;
-
-      &:hover {
-        background-color: var(--menu-hover) !important;
-      }
+      background: #{$base-sub-menu-background} !important;
+      &:hover { background: #{$menuHover} !important; }
     }
     &.theme-light {
-      border-right: none !important;
-      .el-menu-item,
-      .el-sub-menu__title {
-        color: var(--sidebar-text) !important;
-      }
-      .el-menu-item:not(.is-active):hover,
-      .submenu-title-noDropdown:hover,
-      .el-sub-menu__title:hover {
-        background-color: var(--menu-hover) !important;
-      }
-      .el-menu .nest-menu .el-sub-menu>.el-sub-menu__title,
-      .el-menu .el-sub-menu .el-menu-item,
-      .nest-menu .el-sub-menu>.el-sub-menu__title,
-      .el-sub-menu .el-menu-item {
-        background-color: var(--el-bg-color) !important;
-        &:hover {
-          background-color: var(--menu-hover) !important;
-        }
+      border-right: 1px solid #{$border-light};
+      .el-menu-item, .el-sub-menu__title { color: var(--sidebar-text) !important; }
+      .el-menu-item.is-active { color: #{$color-primary} !important; }
+      .el-menu-item:not(.is-active):hover, .submenu-title-noDropdown:hover, .el-sub-menu__title:hover { background: #{$color-primary-light} !important; }
+      .el-menu .nest-menu .el-sub-menu>.el-sub-menu__title, .el-menu .el-sub-menu .el-menu-item, .nest-menu .el-sub-menu>.el-sub-menu__title, .el-sub-menu .el-menu-item {
+        background: #fafbfc;
+        &:hover { background: #{$color-primary-light} !important; }
       }
     }
   }
 
-  .topmenu-container {
-    .el-menu-item,
-    .el-sub-menu .el-sub-menu__title {
-      color: var(--el-text-color-regular) !important;
-    }
-  }
-
-  .topbar-menu.el-menu--horizontal > .el-sub-menu .el-sub-menu__title{
-    color: var(--el-text-color-regular) !important;
-  }
-
-  /* 顶部栏栏菜单覆盖 */
+  // === 顶栏 ===
+  .topmenu-container { .el-menu-item, .el-sub-menu .el-sub-menu__title { color: var(--el-text-color-regular) !important; } }
+  .topbar-menu.el-menu--horizontal > .el-sub-menu .el-sub-menu__title { color: var(--el-text-color-regular) !important; }
   .el-menu--horizontal {
     .el-menu-item, .el-sub-menu {
-      &:not(.is-disabled) {
-        &:hover,
-        &:focus {
-          background-color: var(--navbar-hover) !important;
-          .el-sub-menu__title {
-            background-color: var(--navbar-hover) !important;
-          }
-        }
-      }
+      &:not(.is-disabled):hover, &:not(.is-disabled):focus { background: var(--navbar-hover) !important; .el-sub-menu__title { background: var(--navbar-hover) !important; } }
     }
   }
 
-  /* 页签样式覆盖 */
-  .navbar {
-    box-shadow: 0 1px 4px rgba(255, 255, 255, 0.08);
-  }
+  .navbar { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+
+  // === 标签页 ===
   .tags-view-container {
     &.tags-view-container--chrome {
-      --chrome-strip-bg: var(--el-bg-color);
-      --chrome-strip-border: var(--el-border-color);
-      --chrome-tab-active-bg: var(--el-bg-color-overlay);
-      --chrome-tab-active-bg: color-mix(in srgb, var(--el-color-primary) 22%, var(--el-bg-color-overlay) 78%);
-      --chrome-tab-text: var(--el-text-color-secondary);
+      --chrome-strip-bg: var(--el-bg-color); --chrome-strip-border: var(--el-border-color);
+      --chrome-tab-active-bg: #{$color-primary-light}; --chrome-tab-text: var(--el-text-color-secondary);
       --chrome-tab-text-active: var(--el-color-primary);
-      .tags-view-wrapper .tags-view-item:not(.active) + .tags-view-item:not(.active) {
-        border-left-color: var(--el-border-color);
-      }
+      .tags-view-wrapper .tags-view-item:not(.active) + .tags-view-item:not(.active) { border-left-color: var(--el-border-color); }
       .tags-view-wrapper .tags-view-item {
-        &:hover:not(.active) {
-          background: var(--el-fill-color, #303030) !important;
-          color: var(--el-text-color-primary);
-        }
-        &.active {
-          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
-        }
+        &:hover:not(.active) { background: #{$color-primary-light} !important; color: var(--el-text-color-primary); }
+        &.active { box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25); }
       }
     }
     &:not(.tags-view-container--chrome) .tags-view-wrapper .tags-view-item.active {
-      background-color: var(--tags-card-active-bg) !important;
-      border-color: var(--tags-card-active-border) !important;
-      color: var(--current-color, #409eff) !important;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
-
-      &::before {
-        background: var(--current-color, #409eff) !important;
-      }
+      background: #{$color-primary-light} !important; border-color: #{$color-primary-border} !important;
+      color: var(--current-color, #{$color-primary}) !important;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15), 0 0 8px rgba(45, 90, 75, 0.08);
+      &::before { background: var(--current-color, #{$color-primary}) !important; }
     }
   }
 
-  /* 分割窗格覆盖 */
+  // === 分割窗格 ===
   .tree-sidebar-manage-wrap {
-    .tree-sidebar-content {
-      background: var(--splitpanes-bg);
-    }
-    .tree-sidebar {
-      border-right: 1px solid var(--splitpanes-splitter-bg);
-      background: var(--splitpanes-bg);
-      .tree-header {
-        background: var(--splitpanes-bg);
-        border-color: var(--splitpanes-border);
-      }
-      .tree-title {
-        color: var(--el-color-primary-light-2);
-      }
-      .collapse-button-container {
-        background: var(--splitpanes-bg) !important;
-      }
-      .collapse-button {
-        &:hover {
-          color: var(--el-color-primary-light-2);
-          background: var(--splitpanes-bg);
-        }
-      }
-      .resize-handle {
-        &:hover {
-          background: var(--splitpanes-splitter-hover-bg);
-        }
-        &.active {
-          background: var(--splitpanes-splitter-hover-bg);
-        }
-      }
+    .tree-sidebar-content { background: var(--splitpanes-bg); }
+    .tree-sidebar { border-right: 1px solid var(--splitpanes-splitter-bg); background: var(--splitpanes-bg);
+      .tree-header { background: var(--splitpanes-bg); border-color: var(--splitpanes-border); }
+      .tree-title { color: var(--el-color-primary-light-2); }
+      .collapse-button-container { background: var(--splitpanes-bg) !important; }
+      .collapse-button { &:hover { color: var(--el-color-primary-light-2); background: var(--splitpanes-bg); } }
+      .resize-handle { &:hover, &.active { background: var(--splitpanes-splitter-hover-bg); } }
     }
   }
 
-  /* 按钮样式覆盖 */
+  // === 按钮 ===
   .el-button--primary.is-plain {
-    background-color: var(--primary-bg);
-    border: 1px solid var(--el-color-primary-light-2);
-    color: var(--el-color-primary-light-2);
-
-    &:hover {
-      background-color: var(--el-button-hover-bg-color);
-      border-color: var(--el-button-hover-border-color);
-      color: var(--el-button-hover-text-color);
-    }
-
-    &.is-disabled {
-      background-color: var(--link-active-bg-color);
-      border-color: var(--el-color-primary-light-3);
-      color: var(--el-color-primary-light-3);
-      opacity: 0.5;
-    }
+    background: var(--primary-bg); border: 1px solid var(--el-color-primary-light-2); color: var(--el-color-primary-light-2);
+    &:hover { background: var(--el-button-hover-bg-color); border-color: var(--el-button-hover-border-color); color: var(--el-button-hover-text-color); }
+    &.is-disabled { background: var(--link-active-bg-color); border-color: var(--el-color-primary-light-3); color: var(--el-color-primary-light-3); opacity: 0.5; }
   }
 
-  /* primary tag 样式覆盖 */
-  .el-tag--primary {
-    background-color: var(--primary-bg);
-    border: 1px solid var(--el-border-color-light);
-    color: var(--el-color-primary);
-  }
+  // === Tag ===
+  .el-tag--primary { background: var(--primary-bg); border: 1px solid var(--el-border-color-light); color: var(--el-color-primary); }
 
-  /* 表格样式覆盖 */
+  // === 表格 ===
   .el-table {
-    --el-table-header-bg-color: var(--el-bg-color-overlay) !important;
-    --el-table-header-text-color: var(--el-text-color-regular) !important;
-    --el-table-border-color: var(--el-border-color-light) !important;
-    --el-table-row-hover-bg-color: var(--el-bg-color-overlay) !important;
-
-    .el-table__header-wrapper, .el-table__fixed-header-wrapper {
-      th {
-        background-color: var(--el-bg-color-overlay, #f8f8f9) !important;
-        color: var(--el-text-color-regular, #515a6e);
-      }
-    }
+    --el-table-header-bg-color: rgba(45, 90, 75, 0.12) !important;
+    --el-table-header-text-color: #5a8a7b !important;
+    --el-table-border-color: #2d3748 !important;
+    --el-table-row-hover-bg-color: rgba(45, 90, 75, 0.06) !important;
+    --el-table-current-row-bg-color: rgba(45, 90, 75, 0.08) !important;
+    --el-table-tr-bg-color: var(--el-bg-color) !important;
+    --el-table-striped-row-bg-color: rgba(255, 255, 255, 0.02) !important;
+    .el-table__header-wrapper th, .el-table__fixed-header-wrapper th { background: rgba(45, 90, 75, 0.12) !important; color: #5a8a7b !important; }
   }
 
-  /* 树组件高亮样式覆盖 */
-  .el-tree {
-    .el-tree-node.is-current > .el-tree-node__content {
-      background-color: var(--el-bg-color-overlay) !important;
-      color: var(--el-color-primary);
-    }
+  .el-input__wrapper { box-shadow: 0 0 0 1px #2d3748 inset; &:hover { box-shadow: 0 0 0 1px rgba(45, 90, 75, 0.3) inset; } }
+  .el-input.is-focus .el-input__wrapper, .el-select .el-input.is-focus .el-input__wrapper { box-shadow: 0 0 0 1px #{$color-primary} inset, 0 0 10px rgba(45, 90, 75, 0.15) !important; }
 
-    .el-tree-node__content:hover {
-      background-color: var(--el-bg-color-overlay);
-    }
-  }
-  
-  /* 下拉菜单样式覆盖 */
-  .el-dropdown-menu__item:not(.is-disabled):focus, .el-dropdown-menu__item:not(.is-disabled):hover{
-    background-color: var(--navbar-hover) !important;
-  }
+  .el-dialog { border: 1px solid #2d3748; box-shadow: 0 0 40px rgba(0, 0, 0, 0.4); }
+  .el-dropdown-menu__item:not(.is-disabled):focus, .el-dropdown-menu__item:not(.is-disabled):hover { background: var(--navbar-hover) !important; }
+  .el-card { background: var(--el-bg-color-overlay) !important; border-color: #2d3748 !important; }
+  .el-pagination .el-pager li:not(.is-disabled).is-active { background: #{$color-primary}; box-shadow: 0 0 10px rgba(45, 90, 75, 0.2); }
+  .el-tree { .el-tree-node.is-current > .el-tree-node__content { background: rgba(45, 90, 75, 0.1) !important; color: var(--el-color-primary); } .el-tree-node__content:hover { background: rgba(45, 90, 75, 0.05); } }
 
-  /* blockquote样式覆盖 */
-  blockquote {
-    background-color: var(--blockquote-bg) !important;
-    border-left-color: var(--blockquote-border) !important;
-    color: var(--blockquote-text) !important;
-  }
-  
-  /* 时间表达式标题样式覆盖 */
-  .popup-result .title {
-    background: var(--cron-border);
-  }
+  blockquote { background: var(--blockquote-bg) !important; border-left-color: var(--blockquote-border) !important; color: var(--blockquote-text) !important; }
+  .popup-result .title { background: var(--cron-border); }
+  .copyright { background: var(--el-bg-color) !important; color: var(--el-text-color-regular) !important; border-top: 1px solid #2d3748 !important; }
 
-  /* 底部版权样式覆盖 */
-  .copyright {
-    background-color: var(--el-bg-color) !important;
-    color: var(--el-text-color-regular) !important;
-    border-top: 1px solid var(--el-bg-color) !important;
-  }
+  .detail-drawer { .el-drawer__header { color: var(--el-text-color-primary); background: var(--el-bg-color-overlay); border-bottom: 1px solid var(--el-border-color); } .section-header { color: var(--el-color-primary-light-3); border-bottom-color: var(--el-border-color); } .drawer-content { .info-label { color: var(--el-text-color-secondary); } .info-value { color: var(--el-text-color-primary); &.plaintext { border-bottom-color: var(--el-border-color); } } } }
+  .detail-card { border-color: var(--el-border-color); }
+  .detail-card-title { background: var(--el-bg-color-overlay); color: var(--el-text-color-primary); border-bottom-color: var(--el-border-color); }
+  .detail-item { border-bottom-color: var(--el-border-color-lighter, #2a2a2a); }
+  .detail-label { color: var(--el-text-color-secondary); }
+  .detail-value { color: var(--el-text-color-primary); }
+  .code-wrap { background: var(--el-bg-color-overlay); border-color: var(--el-border-color); }
+  .code-pre { color: var(--el-text-color-regular); }
+  .code-action .el-button { background: rgba(30, 30, 30, 0.9); border-color: var(--el-border-color); color: var(--el-text-color-regular); &:hover { background: var(--el-bg-color-overlay); border-color: var(--el-color-primary); } }
 
-  /* 详情抽屉暗黑模式覆盖 */
-  .detail-drawer {
-    .el-drawer__header {
-      color: var(--el-text-color-primary);
-      background: var(--el-bg-color-overlay);
-      border-bottom: 1px solid var(--el-border-color);
-    }
-    .section-header {
-      color: var(--el-color-primary-light-3);
-      border-bottom-color: var(--el-border-color);
-    }
-    .drawer-content {
-      .info-label {
-        color: var(--el-text-color-secondary);
-      }
-      .info-value {
-        color: var(--el-text-color-primary);
-        &.plaintext {
-          border-bottom-color: var(--el-border-color);
-        }
-      }
-    }
-  }
-
-  /* 详情卡片暗黑模式覆盖 */
-  .detail-card {
-    border-color: var(--el-border-color);
-  }
-  .detail-card-title {
-    background: var(--el-bg-color-overlay);
-    color: var(--el-text-color-primary);
-    border-bottom-color: var(--el-border-color);
-  }
-  .detail-item {
-    border-bottom-color: var(--el-border-color-lighter, #2a2a2a);
-  }
-  .detail-label {
-    color: var(--el-text-color-secondary);
-  }
-  .detail-value {
-    color: var(--el-text-color-primary);
-  }
-  .code-wrap {
-    background: var(--el-bg-color-overlay);
-    border-color: var(--el-border-color);
-  }
-  .code-pre {
-    color: var(--el-text-color-regular);
-  }
-  .code-action .el-button {
-    background: rgba(30, 30, 30, 0.9);
-    border-color: var(--el-border-color);
-    color: var(--el-text-color-regular);
-    &:hover {
-      background: var(--el-bg-color-overlay);
-      border-color: var(--el-color-primary);
-    }
-  }
-
-  /* 字典详情抽屉暗黑模式变量 */
-  --dict-drawer-title-color: var(--el-text-color-primary);
-  --dict-drawer-subtext-color: var(--el-text-color-secondary);
-  --dict-drawer-card-bg: var(--el-bg-color-overlay);
-  --dict-drawer-border-color: var(--el-border-color);
-  --dict-drawer-cell-divider: var(--el-border-color-lighter, #2a2a2a);
-
-  /* 通知公告详情抽屉暗黑模式变量 */
-  --notice-title-color: var(--el-text-color-primary);
-  --notice-meta-color: var(--el-text-color-secondary);
-  --notice-meta-icon-color: var(--el-text-color-placeholder, #606266);
-  --notice-border-color: var(--el-border-color);
-  --notice-body-bg: var(--el-bg-color-overlay);
-  --notice-body-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --notice-content-color: var(--el-text-color-regular);
-  --notice-drawer-body-bg: var(--el-bg-color);
-  --notice-divider-gradient: linear-gradient(to right, transparent, var(--el-border-color), transparent);
-  --notice-divider-dot-color: var(--el-border-color-light, #434343);
-  --notice-blockquote-bg: var(--el-bg-color);
-  --notice-blockquote-border: var(--el-border-color);
-  --notice-table-border: var(--el-border-color);
-  --notice-table-header-bg: var(--el-bg-color);
-  --notice-tag-notify-bg: rgba(217, 119, 6, 0.15);
-  --notice-tag-notify-color: #f6ad55;
-  --notice-tag-announce-bg: rgba(56, 161, 105, 0.15);
-  --notice-tag-announce-color: #68d391;
+  --dict-drawer-title-color: var(--el-text-color-primary); --dict-drawer-subtext-color: var(--el-text-color-secondary);
+  --dict-drawer-card-bg: var(--el-bg-color-overlay); --dict-drawer-border-color: var(--el-border-color); --dict-drawer-cell-divider: var(--el-border-color-lighter, #2a2a2a);
+  --notice-title-color: var(--el-text-color-primary); --notice-meta-color: var(--el-text-color-secondary);
+  --notice-meta-icon-color: var(--el-text-color-placeholder, #606266); --notice-border-color: var(--el-border-color);
+  --notice-body-bg: var(--el-bg-color-overlay); --notice-body-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --notice-content-color: var(--el-text-color-regular); --notice-drawer-body-bg: var(--el-bg-color); --notice-divider-gradient: linear-gradient(to right, transparent, var(--el-border-color), transparent);
+  --notice-divider-dot-color: var(--el-border-color-light, #434343); --notice-blockquote-bg: var(--el-bg-color); --notice-blockquote-border: var(--el-border-color);
+  --notice-table-border: var(--el-border-color); --notice-table-header-bg: var(--el-bg-color);
+  --notice-tag-notify-bg: rgba(201, 168, 76, 0.15); --notice-tag-notify-color: #d4b65c;
+  --notice-tag-announce-bg: rgba(45, 90, 75, 0.15); --notice-tag-announce-color: #5a8a7b;
 }
 
-.notice-detail-drawer {
-  .notice-content {
-    color: var(--el-text-color-regular) !important;
-    * { color: var(--el-text-color-regular) !important; }
-    h1~h6, strong, b { color: var(--el-text-color-primary) !important; }
-    a, a * { color: #5ba7f5 !important; }
-    blockquote, blockquote * { color: var(--el-text-color-secondary) !important; }
-  }
-}
-
+.notice-detail-drawer .notice-content { color: var(--el-text-color-regular) !important; * { color: var(--el-text-color-regular) !important; } h1~h6, strong, b { color: var(--el-text-color-primary) !important; } a, a * { color: #5ba7f5 !important; } blockquote, blockquote * { color: var(--el-text-color-secondary) !important; } }

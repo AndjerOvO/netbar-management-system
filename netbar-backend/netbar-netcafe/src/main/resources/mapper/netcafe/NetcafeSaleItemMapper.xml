@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztw.netbar.netcafe.mapper.NetcafeSaleItemMapper">
+
+    <resultMap type="NetcafeSaleItem" id="NetcafeSaleItemResult">
+        <result property="id"           column="id"             />
+        <result property="orderId"      column="order_id"       />
+        <result property="productId"    column="product_id"     />
+        <result property="quantity"     column="quantity"       />
+        <result property="priceAtTime"  column="price_at_time"  />
+        <result property="delFlag"      column="del_flag"       />
+        <result property="productName"  column="product_name"   />
+    </resultMap>
+
+    <select id="selectNetcafeSaleItemByOrderId" parameterType="Long" resultMap="NetcafeSaleItemResult">
+        select i.id, i.order_id, i.product_id, i.quantity, i.price_at_time, i.del_flag,
+               p.product_name
+        from netcafe_sale_item i
+        left join netcafe_product p on i.product_id = p.id
+        where i.order_id = #{orderId} and i.del_flag = '0'
+    </select>
+
+    <insert id="insertNetcafeSaleItem" parameterType="NetcafeSaleItem" useGeneratedKeys="true" keyProperty="id">
+        insert into netcafe_sale_item (
+            <if test="orderId != null">order_id, </if>
+            <if test="productId != null">product_id, </if>
+            <if test="quantity != null">quantity, </if>
+            <if test="priceAtTime != null">price_at_time, </if>
+            <if test="createBy != null and createBy != ''">create_by, </if>
+            create_time
+        )values(
+            <if test="orderId != null">#{orderId}, </if>
+            <if test="productId != null">#{productId}, </if>
+            <if test="quantity != null">#{quantity}, </if>
+            <if test="priceAtTime != null">#{priceAtTime}, </if>
+            <if test="createBy != null and createBy != ''">#{createBy}, </if>
+            sysdate()
+        )
+    </insert>
+
+</mapper>

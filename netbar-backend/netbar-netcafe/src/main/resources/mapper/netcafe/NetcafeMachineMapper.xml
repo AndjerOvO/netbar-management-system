@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztw.netbar.netcafe.mapper.NetcafeMachineMapper">
+
+    <resultMap type="NetcafeMachine" id="NetcafeMachineResult">
+        <result property="id"           column="id"             />
+        <result property="machineNo"    column="machine_no"     />
+        <result property="type"         column="type"           />
+        <result property="pricePerHour" column="price_per_hour" />
+        <result property="status"       column="status"         />
+        <result property="delFlag"      column="del_flag"       />
+        <result property="createBy"     column="create_by"      />
+        <result property="createTime"   column="create_time"    />
+        <result property="updateBy"     column="update_by"      />
+        <result property="updateTime"   column="update_time"    />
+        <result property="remark"       column="remark"         />
+    </resultMap>
+
+    <sql id="selectNetcafeMachineVo">
+        select id, machine_no, type, price_per_hour, status, del_flag,
+               create_by, create_time, update_by, update_time, remark
+        from netcafe_machine
+    </sql>
+
+    <select id="selectNetcafeMachineById" parameterType="Long" resultMap="NetcafeMachineResult">
+        <include refid="selectNetcafeMachineVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectNetcafeMachineByMachineNo" parameterType="String" resultMap="NetcafeMachineResult">
+        <include refid="selectNetcafeMachineVo"/>
+        where machine_no = #{machineNo} and del_flag = '0'
+    </select>
+
+    <select id="selectNetcafeMachineList" parameterType="NetcafeMachine" resultMap="NetcafeMachineResult">
+        <include refid="selectNetcafeMachineVo"/>
+        <where>
+            del_flag = '0'
+            <if test="machineNo != null and machineNo != ''">
+                AND machine_no like concat('%', #{machineNo}, '%')
+            </if>
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insertNetcafeMachine" parameterType="NetcafeMachine" useGeneratedKeys="true" keyProperty="id">
+        insert into netcafe_machine (
+            <if test="machineNo != null and machineNo != ''">machine_no, </if>
+            <if test="type != null and type != ''">type, </if>
+            <if test="pricePerHour != null">price_per_hour, </if>
+            <if test="status != null and status != ''">status, </if>
+            <if test="remark != null and remark != ''">remark, </if>
+            <if test="createBy != null and createBy != ''">create_by, </if>
+            create_time
+        )values(
+            <if test="machineNo != null and machineNo != ''">#{machineNo}, </if>
+            <if test="type != null and type != ''">#{type}, </if>
+            <if test="pricePerHour != null">#{pricePerHour}, </if>
+            <if test="status != null and status != ''">#{status}, </if>
+            <if test="remark != null and remark != ''">#{remark}, </if>
+            <if test="createBy != null and createBy != ''">#{createBy}, </if>
+            sysdate()
+        )
+    </insert>
+
+    <update id="updateNetcafeMachine" parameterType="NetcafeMachine">
+        update netcafe_machine
+        <set>
+            <if test="machineNo != null and machineNo != ''">machine_no = #{machineNo}, </if>
+            <if test="type != null and type != ''">type = #{type}, </if>
+            <if test="pricePerHour != null">price_per_hour = #{pricePerHour}, </if>
+            <if test="status != null and status != ''">status = #{status}, </if>
+            <if test="remark != null">remark = #{remark}, </if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy}, </if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="deleteNetcafeMachineById" parameterType="Long">
+        update netcafe_machine set del_flag = '1' where id = #{id}
+    </update>
+
+    <update id="deleteNetcafeMachineByIds" parameterType="Long">
+        update netcafe_machine set del_flag = '1' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateNetcafeMachineStatus">
+        update netcafe_machine
+        set status = #{status}, update_time = sysdate()
+        where id = #{id}
+    </update>
+
+</mapper>

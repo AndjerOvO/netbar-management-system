@@ -86,16 +86,19 @@
   .el-table__header-wrapper, .el-table__fixed-header-wrapper {
     th {
       word-break: break-word;
-      background-color: #f8f8f9 !important;
-      color: #515a6e;
+      background-color: #f0f2f5 !important;
+      color: #1a2332 !important;
       height: 40px !important;
       font-size: 13px;
+      font-weight: 600;
+      border-bottom: 1px solid #e8ecf0 !important;
     }
   }
   .el-table__body-wrapper {
-    .el-button [class*="el-icon-"] + span {
-      margin-left: 1px;
-    }
+    .el-button [class*="el-icon-"] + span { margin-left: 1px; }
+  }
+  .el-table__body tr.el-table__row--striped td.el-table__cell {
+    background-color: #fafbfc;
   }
 }
 

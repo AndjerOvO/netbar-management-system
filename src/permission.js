@@ -9,17 +9,59 @@ import useUserStore from '@/store/modules/user'
 import useLockStore from '@/store/modules/lock'
 import useSettingsStore from '@/store/modules/settings'
 import usePermissionStore from '@/store/modules/permission'
+import { getMemberInfo } from '@/api/member/index'
 
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login', '/register']
+const whiteList = ['/login', '/register', '/member']
 
 const isWhiteList = (path) => {
   return whiteList.some(pattern => isPathMatch(pattern, path))
 }
 
+// 会员端路径判断
+const isMemberPath = (path) => {
+  return path === '/member' || path === '/member-dashboard' || path.startsWith('/member-')
+}
+
 router.beforeEach(async (to, from) => {
   NProgress.start()
+
+  // === 会员端路由守卫 ===
+  if (isMemberPath(to.path)) {
+    // 如果已登录后台管理，不允许访问会员页面
+    if (getToken()) {
+      NProgress.done()
+      return { path: '/' }
+    }
+    const memberToken = localStorage.getItem('member-token')
+    const tempToken = localStorage.getItem('temp-token')
+    // 临时卡也放行
+    if (tempToken && to.path === '/member-dashboard') {
+      NProgress.done()
+      return true
+    }
+    if (to.path === '/member') {
+      NProgress.done()
+      return true
+    }
+    if (!memberToken) {
+      NProgress.done()
+      return { path: '/member' }
+    }
+    try {
+      await getMemberInfo(memberToken)
+      NProgress.done()
+      return true
+    } catch (err) {
+      localStorage.removeItem('member-token')
+      localStorage.removeItem('member-info')
+      NProgress.done()
+      return { path: '/member' }
+    }
+  }
+
+  // === 后台管理路由守卫 ===
   if (getToken()) {
     to.meta.title && useSettingsStore().setTitle(to.meta.title)
     const isLock = useLockStore().isLock
@@ -41,17 +83,14 @@ router.beforeEach(async (to, from) => {
     if (useUserStore().roles.length === 0) {
       isRelogin.show = true
       try {
-        // 拉取user_info信息
         await useUserStore().getInfo()
         isRelogin.show = false
-        // 根据roles权限生成可访问的路由
         const accessRoutes = await usePermissionStore().generateRoutes()
         accessRoutes.forEach(route => {
           if (!isHttp(route.path)) {
             router.addRoute(route)
           }
         })
-        // 重新导航到目标路由，确保动态路由已注册
         return { ...to, replace: true }
       } catch (err) {
         await useUserStore().logOut()
@@ -61,13 +100,11 @@ router.beforeEach(async (to, from) => {
     }
     return true
   } else {
-    // 没有token
     if (isWhiteList(to.path)) {
-      // 在免登录白名单，直接进入
       return true
     }
     NProgress.done()
-    return `/login?redirect=${to.fullPath}` // 否则全部重定向到登录页
+    return `/login?redirect=${to.fullPath}`
   }
 })
 

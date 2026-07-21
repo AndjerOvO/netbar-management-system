@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztw.netbar.netcafe.mapper.NetcafeSaleOrderMapper">
+
+    <resultMap type="NetcafeSaleOrder" id="NetcafeSaleOrderResult">
+        <result property="id"          column="id"           />
+        <result property="memberId"    column="member_id"    />
+        <result property="totalPrice"  column="total_price"  />
+        <result property="payType"     column="pay_type"     />
+        <result property="delFlag"     column="del_flag"     />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"  column="create_time"  />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"  column="update_time"  />
+        <result property="remark"      column="remark"       />
+        <result property="memberName"  column="member_name"  />
+    </resultMap>
+
+    <sql id="selectNetcafeSaleOrderVo">
+        select o.id, o.member_id, o.total_price, o.pay_type, o.del_flag,
+               o.create_by, o.create_time, o.update_by, o.update_time, o.remark,
+               m.name as member_name
+        from netcafe_sale_order o
+        left join netcafe_member m on o.member_id = m.id
+    </sql>
+
+    <select id="selectNetcafeSaleOrderById" parameterType="Long" resultMap="NetcafeSaleOrderResult">
+        <include refid="selectNetcafeSaleOrderVo"/>
+        where o.id = #{id} and o.del_flag = '0'
+    </select>
+
+    <select id="selectNetcafeSaleOrderList" parameterType="NetcafeSaleOrder" resultMap="NetcafeSaleOrderResult">
+        <include refid="selectNetcafeSaleOrderVo"/>
+        <where>
+            o.del_flag = '0'
+            <if test="memberId != null">
+                AND o.member_id = #{memberId}
+            </if>
+            <if test="payType != null and payType != ''">
+                AND o.pay_type = #{payType}
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                AND date_format(o.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                AND date_format(o.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by o.id desc
+    </select>
+
+    <insert id="insertNetcafeSaleOrder" parameterType="NetcafeSaleOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into netcafe_sale_order (
+            <if test="memberId != null">member_id, </if>
+            <if test="totalPrice != null">total_price, </if>
+            <if test="payType != null and payType != ''">pay_type, </if>
+            <if test="remark != null and remark != ''">remark, </if>
+            <if test="createBy != null and createBy != ''">create_by, </if>
+            create_time
+        )values(
+            <if test="memberId != null">#{memberId}, </if>
+            <if test="totalPrice != null">#{totalPrice}, </if>
+            <if test="payType != null and payType != ''">#{payType}, </if>
+            <if test="remark != null and remark != ''">#{remark}, </if>
+            <if test="createBy != null and createBy != ''">#{createBy}, </if>
+            sysdate()
+        )
+    </insert>
+
+</mapper>

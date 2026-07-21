@@ -48,6 +48,16 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/member',
+    component: () => import('@/views/member/login'),
+    hidden: true
+  },
+  {
+    path: '/member-dashboard',
+    component: () => import('@/views/member/dashboard'),
+    hidden: true
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import('@/views/error/404'),
     hidden: true
@@ -150,20 +160,6 @@ export const dynamicRoutes = [
       }
     ]
   },
-  {
-    path: '/tool/gen-edit',
-    component: Layout,
-    hidden: true,
-    permissions: ['tool:gen:edit'],
-    children: [
-      {
-        path: 'index/:tableId(\\d+)',
-        component: () => import('@/views/tool/gen/editTable'),
-        name: 'GenEdit',
-        meta: { title: '修改生成配置', activeMenu: '/tool/gen' }
-      }
-    ]
-  }
 ]
 
 const router = createRouter({

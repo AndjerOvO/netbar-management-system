@@ -1,0 +1,159 @@
+# ============================================
+# 警告：请将此文件复制为 application-dev.yml
+#       或 application-prod.yml，并填入真实配置！
+#       请勿将包含真实密码的配置文件提交至 Git 仓库！
+#       application-dev.yml 已在 .gitignore 中忽略。
+# ============================================
+
+# ==================== 项目配置 ====================
+netbar:
+  name: NetBar
+  version: 3.9.2
+  copyrightYear: 2026
+  profile: YOUR_UPLOAD_PATH
+  addressEnabled: false
+  captchaType: math
+
+# ==================== 服务端口 ====================
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+    accept-count: 1000
+    threads:
+      max: 800
+      min-spare: 100
+
+# ==================== 日志 ====================
+logging:
+  level:
+    com.ztw.netbar: debug
+    org.springframework: warn
+
+# ==================== Spring ====================
+spring:
+  messages:
+    basename: i18n/messages
+  profiles:
+    active: druid
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  devtools:
+    restart:
+      enabled: true
+
+  # ---------- Redis ----------
+  data:
+    redis:
+      host: YOUR_REDIS_HOST
+      port: 6379
+      database: 0
+      password: YOUR_REDIS_PASSWORD
+      timeout: 10s
+      lettuce:
+        pool:
+          min-idle: 0
+          max-idle: 8
+          max-active: 8
+          max-wait: -1ms
+
+# ==================== Druid 数据源（application-druid.yml） ====================
+# 请将以下内容单独保存为 application-druid.yml
+#
+# spring:
+#   datasource:
+#     type: com.alibaba.druid.pool.DruidDataSource
+#     driverClassName: com.mysql.cj.jdbc.Driver
+#     druid:
+#       master:
+#         url: jdbc:mysql://YOUR_DB_HOST:3306/ry-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#         username: YOUR_DB_USERNAME
+#         password: YOUR_DB_PASSWORD
+#       slave:
+#         enabled: false
+#       initialSize: 5
+#       minIdle: 10
+#       maxActive: 20
+#       maxWait: 60000
+#       connectTimeout: 30000
+#       socketTimeout: 60000
+#       timeBetweenEvictionRunsMillis: 60000
+#       minEvictableIdleTimeMillis: 300000
+#       maxEvictableIdleTimeMillis: 900000
+#       validationQuery: SELECT 1 FROM DUAL
+#       testWhileIdle: true
+#       testOnBorrow: false
+#       testOnReturn: false
+#       webStatFilter:
+#         enabled: true
+#       statViewServlet:
+#         enabled: true
+#         allow:
+#         url-pattern: /druid/*
+#         login-username: YOUR_DRUID_USERNAME
+#         login-password: YOUR_DRUID_PASSWORD
+#       filter:
+#         stat:
+#           enabled: true
+#           log-slow-sql: true
+#           slow-sql-millis: 1000
+#           merge-sql: true
+#         wall:
+#           config:
+#             multi-statement-allow: true
+
+# ==================== JWT Token ====================
+token:
+  header: Authorization
+  secret: YOUR_JWT_SECRET_KEY
+  expireTime: 30
+
+# ==================== MyBatis ====================
+mybatis:
+  typeAliasesPackage: com.ztw.netbar.**.domain
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  configLocation: classpath:mybatis/mybatis-config.xml
+
+# ==================== PageHelper 分页 ====================
+pagehelper:
+  helperDialect: mysql
+  supportMethodsArguments: true
+  params: count=countSql
+
+# ==================== SpringDoc (Swagger) ====================
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    tags-sorter: alpha
+  group-configs:
+    - group: 'default'
+      display-name: '测试模块'
+      paths-to-match: '/**'
+      packages-to-scan: com.ztw.netbar.web.controller.tool
+
+# ==================== 用户密码策略 ====================
+user:
+  password:
+    maxRetryCount: 5
+    lockTime: 10
+
+# ==================== 防盗链 ====================
+referer:
+  enabled: false
+  allowed-domains: localhost,127.0.0.1
+
+# ==================== XSS 过滤 ====================
+xss:
+  enabled: true
+  excludes: /system/notice
+  urlPatterns: /system/*,/monitor/*,/tool/*

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztw.netbar.netcafe.mapper.NetcafeDashboardMapper">
+
+    <select id="selectTodayIncome" resultType="java.math.BigDecimal">
+        SELECT COALESCE(SUM(total_price), 0)
+        FROM netcafe_sale_order
+        WHERE DATE(create_time) = CURDATE()
+        AND del_flag = '0'
+    </select>
+
+    <select id="selectOnlineCount" resultType="int">
+        SELECT COUNT(1)
+        FROM netcafe_usage_record
+        WHERE status = '0'
+        AND del_flag = '0'
+    </select>
+
+    <select id="selectTotalMachines" resultType="int">
+        SELECT COUNT(1)
+        FROM netcafe_machine
+        WHERE del_flag = '0'
+    </select>
+
+    <select id="selectIncomeTrend" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(d.date, '%Y-%m-%d') AS day,
+               COALESCE(SUM(o.total_price), 0) AS amount
+        FROM (
+            SELECT CURDATE() - INTERVAL 6 DAY AS date UNION ALL
+            SELECT CURDATE() - INTERVAL 5 DAY AS date UNION ALL
+            SELECT CURDATE() - INTERVAL 4 DAY AS date UNION ALL
+            SELECT CURDATE() - INTERVAL 3 DAY AS date UNION ALL
+            SELECT CURDATE() - INTERVAL 2 DAY AS date UNION ALL
+            SELECT CURDATE() - INTERVAL 1 DAY AS date UNION ALL
+            SELECT CURDATE() AS date
+        ) d
+        LEFT JOIN netcafe_sale_order o
+            ON DATE(o.create_time) = d.date AND o.del_flag = '0'
+        GROUP BY d.date
+        ORDER BY d.date ASC
+    </select>
+
+</mapper>
