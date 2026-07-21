@@ -116,7 +116,7 @@ NetBarSystem/
 ![商品销售](screenshots/product.png)
 
 <!-- 设备管理 -->
-<!-- ![设备管理](screenshots/machine.png) -->
+![设备管理](screenshots/machine.png)
 
 <!-- 上机记录 -->
 <!-- ![上机记录](screenshots/usage.png) -->
