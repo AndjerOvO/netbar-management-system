@@ -108,20 +108,23 @@ NetBarSystem/
 <!-- 后台首页数据看板 -->
 ![数据看板](screenshots/dashboard.png)
 
-<!-- 暗黑模式效果 -->
-![暗黑模式](screenshots/dark-mode.png)
-
 <!-- 会员管理 -->
 ![会员管理](screenshots/member.png)
 
-<!-- 设备管理 -->
-![设备管理](screenshots/machine.png)
-
-<!-- 上机记录 -->
-![上机记录](screenshots/usage.png)
+<!-- 会员端界面 -->
+![会员端](screenshots/Member%20Interface.png)
 
 <!-- 商品销售 -->
 ![商品销售](screenshots/product.png)
+
+<!-- 暗黑模式效果 -->
+<!-- ![暗黑模式](screenshots/dark-mode.png) -->
+
+<!-- 设备管理 -->
+<!-- ![设备管理](screenshots/machine.png) -->
+
+<!-- 上机记录 -->
+<!-- ![上机记录](screenshots/usage.png) -->
 ```
 
 ## 环境准备
