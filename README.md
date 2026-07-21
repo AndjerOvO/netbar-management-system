@@ -19,7 +19,7 @@
 
 网咖综合管理系统是一套面向网吧/网咖场景的全流程业务管理平台，也是我的**本科毕业设计项目**。系统基于 [RuoYi-Vue3](https://gitee.com/y_project/RuoYi-Vue) 前后端分离框架进行深度二次开发，采用 Maven 多模块架构，覆盖会员管理、设备分区计费、商品销售、上机实时监控、数据统计分析等核心业务场景。
 
-在若依框架基础上，本项目**删减**了代码生成器、定时任务框架、部门管理、岗位管理等无关模块，**新增** `netbar-netcafe` 网咖业务模块，内置心跳保活、余额强制下线、库存防超卖等网咖特有业务逻辑，同时适配了暗黑模式与双 Token 隔离认证体系。
+在若依框架基础上，本项目**删减**了代码生成器、定时任务框架、部门管理、岗位管理等无关模块，**新增** `netbar-netcafe` 网咖业务模块，内置心跳保活、余额强制下线、库存防超卖等网咖特有业务逻辑，同时实现了双 Token 隔离认证体系。
 
 ## 核心功能
 
@@ -34,8 +34,6 @@
 | 💰 充值管理 | 充值记录与余额变动流水追踪 |
 | 📊 数据看板 | ECharts 近 7 天网费收入 / 新增会员 / 商品销量趋势图 |
 | 🔐 双 Token 隔离 | 后台管理 `Authorization`（JWT + Redis），会员端 `Member-Token`（JWT 24h 不存 Redis） |
-| 🌗 暗黑模式 | View Transitions API 原生动画切换，墨绿 + 香槟金品牌配色 |
-
 ## 技术栈
 
 > 完整技术栈清单详见 [TECH_STACK.md](TECH_STACK.md)
@@ -90,7 +88,7 @@ NetBarSystem/
 │   ├── layout/                              #   布局组件（侧边栏·导航栏·Logo）
 │   ├── store/                               #   Pinia 状态管理
 │   ├── router/                              #   路由配置 + 权限守卫
-│   └── assets/styles/                       #   全局样式 + 暗黑模式变量
+│   └── assets/styles/                       #   全局样式
 ├── netbar-backend/sql/                      # 数据库初始化脚本
 ├── TECH_STACK.md                            # 完整技术栈清单
 ├── DEPLOY.md                                # 本地部署指南
@@ -116,9 +114,6 @@ NetBarSystem/
 
 <!-- 商品销售 -->
 ![商品销售](screenshots/product.png)
-
-<!-- 暗黑模式效果 -->
-<!-- ![暗黑模式](screenshots/dark-mode.png) -->
 
 <!-- 设备管理 -->
 <!-- ![设备管理](screenshots/machine.png) -->
