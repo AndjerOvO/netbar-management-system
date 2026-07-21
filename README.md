@@ -97,8 +97,6 @@ NetBarSystem/
 
 ## 页面截图
 
-> 请将项目运行截图放入 `screenshots/` 目录，然后在此处取消注释并引用。
-
 <!-- 登录页 -->
 ![登录页](screenshots/login.png)
 
