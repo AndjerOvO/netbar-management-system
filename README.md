@@ -99,7 +99,6 @@ NetBarSystem/
 
 > 请将项目运行截图放入 `screenshots/` 目录，然后在此处取消注释并引用。
 
-```markdown
 <!-- 登录页 -->
 ![登录页](screenshots/login.png)
 
@@ -120,7 +119,6 @@ NetBarSystem/
 
 <!-- 上机记录 -->
 <!-- ![上机记录](screenshots/usage.png) -->
-```
 
 ## 环境准备
 
